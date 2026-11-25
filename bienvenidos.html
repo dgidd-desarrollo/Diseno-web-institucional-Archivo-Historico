@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienvenidos a nuestro Archivo - Archivo Histórico de la Provincia de Tucumán">
+    <title>Bienvenidos a nuestro Archivo | Archivo Histórico de Tucumán</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* ===== Navbar y footer (mismos ajustes que el home) ===== */
+        :root { --navbar-height: 96px; }
+        .navbar-serie { background-color: #0566b3; border-bottom: 3px solid var(--serie-accent); box-shadow: 0 2px 16px rgba(5,102,179,.25); }
+        .navbar-serie__brand { display: inline-flex; align-items: center; text-decoration: none; padding: .4rem 0; }
+        .navbar-serie .navbar-brand img { height: 72px; max-width: min(340px, 60vw); }
+        .navbar-serie .nav-link { color: rgba(255,255,255,.9); }
+        .navbar-serie .nav-link:hover, .navbar-serie .nav-link:focus { color: #fff !important; background-color: rgba(255,255,255,.14); }
+        .navbar-serie .nav-link.active { color: #fff !important; background-color: rgba(255,255,255,.18); }
+        .navbar-serie .nav-link.dropdown-toggle.show { color: #fff; background-color: rgba(255,255,255,.14); }
+        .navbar-serie__toggler { border-color: rgba(255,255,255,.45); }
+        .navbar-serie__toggler:focus { box-shadow: 0 0 0 .2rem rgba(255,255,255,.3); }
+        .navbar-serie__social { border-left-color: rgba(255,255,255,.3); }
+        .navbar-serie__social-link { color: #fff; background: rgba(255,255,255,.14); }
+        .navbar-serie__social-link:hover { color: #0566b3; background: #fff; }
+        @media (max-width: 991.98px) {
+            .navbar-serie__social { border-top-color: rgba(255,255,255,.25); }
+            .navbar-serie .navbar-brand img { height: 60px; }
+        }
+        @media (max-width: 480px) {
+            :root { --navbar-height: 80px; }
+            .navbar-serie .navbar-brand img { height: 54px; max-width: 62vw; }
+        }
+        @media (min-width: 992px) and (max-width: 1199.98px) {
+            .navbar-serie .nav-link { padding: .5rem .55rem !important; font-size: .8rem; }
+            .navbar-serie__social { margin-left: .5rem; padding-left: .5rem; }
+        }
+        .footer-serie .footer-brand { display: block; width: auto; max-width: 100%; }
+        .footer-serie .footer-brand--direccion { height: 60px; }
+        .footer-serie .footer-brand--marca { height: 40px; }
+        .footer-serie .footer-brand--gobierno { height: 60px; }
+        .footer-serie .footer-divider { border: 0; border-top: 1px solid #fff; opacity: .6; margin: 1.25rem 0; }
+        @media (max-width: 575.98px) { .footer-serie .footer-brand--direccion { height: auto; width: 100%; max-width: 320px; } }
+        .footer-serie .social-footer a { margin-right: 1rem; font-size: .875rem; }
+
+
+        /* ===== Single page: contenido simple ===== */
+        html { scroll-behavior: smooth; }
+
+        .page-hero {
+            position: relative; isolation: isolate; overflow: hidden; color: #fff;
+            padding: clamp(3rem, 7vw, 5rem) 0 clamp(4.5rem, 9vw, 6.5rem);
+            background:
+                radial-gradient(ellipse at 90% 0%, rgba(72,202,228,.22) 0%, transparent 55%),
+                linear-gradient(100deg, rgba(8,40,71,.96) 0%, rgba(13,59,102,.82) 55%, rgba(13,59,102,.55) 100%),
+                url('img/banners/banner-casa-de-gobierno.jpg') center/cover no-repeat;
+        }
+        .page-hero::after { content: ''; position: absolute; z-index: -1; left: 0; right: 0; bottom: -1px; height: 48px; background: #fff; clip-path: ellipse(60% 100% at 50% 100%); }
+        .breadcrumb-serie { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin: 0 0 1.25rem; padding: 0; list-style: none; font-size: .8rem; }
+        .breadcrumb-serie li + li::before { content: '/'; margin-right: .4rem; color: rgba(255,255,255,.45); }
+        .breadcrumb-serie a { color: rgba(255,255,255,.8); text-decoration: none; }
+        .breadcrumb-serie a:hover { color: var(--serie-accent); }
+        .breadcrumb-serie [aria-current] { color: #fff; font-weight: 600; }
+        .page-hero__title { font-family: var(--serie-font-heading); font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.1; letter-spacing: -.01em; margin: 0; }
+        .page-hero__title::after { content: ''; display: block; width: 64px; height: 4px; margin-top: 1.1rem; background: var(--serie-accent); border-radius: 2px; }
+
+        .page-body { padding: 1rem 0 5rem; background: #fff; }
+
+        /* Estilos del contenido (así se verán los textos cargados desde el gestor) */
+        .content { max-width: 780px; margin: 0 auto; font-size: 1.05rem; line-height: 1.8; color: #334155; }
+        .content > :first-child { margin-top: 0; }
+        .content p { margin: 0 0 1.25rem; }
+        .content .lead { font-size: 1.3rem; line-height: 1.6; font-weight: 500; color: #0d3b66; margin-bottom: 2rem; }
+        .content h2 { margin: 2.75rem 0 1rem; font-family: var(--serie-font-heading); font-size: clamp(1.5rem, 3vw, 1.9rem); line-height: 1.2; color: var(--bs-primary); }
+        .content h3 { margin: 2rem 0 .75rem; font-size: 1.25rem; font-weight: 700; color: #0d3b66; }
+        .content a:not(.btn) { color: #0566b3; text-underline-offset: 3px; }
+        .content a:not(.btn):hover { color: #0d3b66; }
+        .content ul, .content ol { margin: 0 0 1.5rem; padding-left: 1.4rem; }
+        .content li { margin-bottom: .5rem; }
+        .content li::marker { color: #0566b3; font-weight: 700; }
+        .content hr { margin: 2.5rem 0; border: 0; border-top: 1px solid #e2e8f0; opacity: 1; }
+
+        .content figure { margin: 2rem 0; }
+        .content figure img { display: block; width: 100%; height: auto; border-radius: 14px; box-shadow: 0 8px 30px rgba(13,59,102,.15); }
+        .content figcaption { margin-top: .75rem; padding-left: .9rem; font-size: .85rem; line-height: 1.5; color: #64748b; border-left: 3px solid var(--serie-accent); }
+
+        .content blockquote { margin: 2.25rem 0; padding: 1.4rem 1.75rem; background: #f1f7fd; border-left: 5px solid #0566b3; border-radius: 0 14px 14px 0; }
+        .content blockquote p { margin: 0; font-size: 1.15rem; font-style: italic; color: #0d3b66; }
+        .content blockquote cite { display: block; margin-top: .75rem; font-size: .85rem; font-style: normal; font-weight: 600; color: #0566b3; }
+
+        .content .table-wrap { margin: 2rem 0; overflow-x: auto; border: 1px solid #dbe7f3; border-radius: 12px; }
+        .content table { width: 100%; margin: 0; border-collapse: collapse; font-size: .95rem; line-height: 1.5; }
+        .content th { padding: .75rem 1rem; text-align: left; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: #0566b3; }
+        .content td { padding: .75rem 1rem; border-top: 1px solid #e2e8f0; }
+        .content tbody tr:nth-child(even) { background: #f8fafc; }
+
+        .content__back { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; }
+
+        .content .fig-wide { margin: 0 0 2rem; }
+        .content .fig-wide img { max-height: 460px; object-fit: cover; }
+        .content .fig-side img { box-shadow: 0 6px 20px rgba(13,59,102,.15); }
+        @media (min-width: 768px) {
+            .content .fig-side { float: right; width: 240px; margin: .35rem 0 1rem 1.75rem; }
+        }
+        .content p, .content blockquote, .content .sources { clear: none; }
+        .content .sources, .content .content__back { clear: both; }
+        .content blockquote.inscription { background: #fff8e6; border-left-color: #c9962b; }
+        .content blockquote.inscription p { font-size: .95rem; font-style: normal; letter-spacing: .02em; color: #5c3d00; }
+        .content blockquote + p { margin-top: 1.25rem; }
+        .content .sources { margin-top: 3rem; padding: 1.5rem 1.75rem; background: #f1f7fd; border-radius: 14px; font-size: .92rem; line-height: 1.65; }
+        .content .sources h2 { margin: 0 0 .75rem; font-size: .8rem; font-family: inherit; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #0566b3; }
+        .content .sources ul { margin: 0; }
+        .content .sources li { margin-bottom: .4rem; }
+
+        /* Retrato del director */
+        .content .director { margin: 0 0 2rem; }
+        .content .director img { max-height: 420px; object-fit: cover; object-position: center 25%; }
+        .content .director figcaption { display: flex; flex-direction: column; gap: .15rem; padding-left: .9rem; font-size: .9rem; color: #64748b; }
+        .content .director figcaption strong { font-size: 1.05rem; color: #0d3b66; }
+        @media (min-width: 768px) {
+            .content .director { float: right; width: 260px; margin: .35rem 0 1.25rem 2rem; }
+            .content .director img { max-height: none; aspect-ratio: 4 / 5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-serie" id="mainNavbar">
+        <div class="container navbar-serie__container">
+            <a class="navbar-brand navbar-serie__brand" href="index.html" aria-label="Archivo Histórico de Tucumán - Gobierno de Tucumán">
+                <img src="img/Logo_AH_blanco.png" alt="Archivo Histórico de la Provincia de Tucumán">
+            </a>
+
+            <button class="navbar-toggler navbar-serie__toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse navbar-serie__collapse" id="navbarNav">
+                <ul class="navbar-nav navbar-serie__nav ms-lg-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#inicio">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Institucional</a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start navbar-serie__dropdown">
+                            <li><a class="dropdown-item active" href="bienvenidos.html" aria-current="page">Bienvenidos a nuestro archivo</a></li>
+                            <li><a class="dropdown-item" href="pagina.html">Nuestra Historia</a></li>
+                            <li><a class="dropdown-item" href="organizacion.html">Nuestra Organización</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Patrimonio</a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start navbar-serie__dropdown">
+                            <li><a class="dropdown-item" href="nuestro-patrimonio.html">Nuestro patrimonio</a></li>
+                            <li><a class="dropdown-item" href="https://archivoh-beta.tucuman.gov.ar/Pi/index/69">Fondos / Colecciones</a></li>
+                            <li><a class="dropdown-item" href="https://archivoh-beta.tucuman.gov.ar/Pi/index/68">Hemeroteca</a></li>
+                            <li><a class="dropdown-item" href="https://archivoh-beta.tucuman.gov.ar/Pi/index/67">Biblioteca</a></li>
+                            <li><a class="dropdown-item" href="https://archivoh-beta.tucuman.gov.ar/Pi/index/65">Publicaciones de nuestro sello editor</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#efemerides">Efemérides</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://archivoh-beta.tucuman.gov.ar/curiosidades">Curiosidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="novedades.html">Novedades</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Multimedia</a>
+                        <ul class="dropdown-menu dropdown-menu-end navbar-serie__dropdown">
+                            <li><a class="dropdown-item" href="https://archivoh-beta.tucuman.gov.ar/galerias">Galería de imágenes</a></li>
+                            <li><a class="dropdown-item" href="https://archivoh-beta.tucuman.gov.ar/Pi/index/82">Galería de videos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="navbar-serie__social" aria-label="Redes sociales">
+                    <a href="https://www.facebook.com/" class="navbar-serie__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/ahtucuman" class="navbar-serie__social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/" class="navbar-serie__social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/" class="navbar-serie__social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <header class="page-hero">
+            <div class="container">
+                <nav aria-label="Ruta de navegación">
+                    <ol class="breadcrumb-serie">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="#">Institucional</a></li>
+                        <li aria-current="page">Bienvenidos a nuestro Archivo</li>
+                    </ol>
+                </nav>
+                <h1 class="page-hero__title">Bienvenidos a nuestro Archivo</h1>
+            </div>
+        </header>
+
+        <div class="page-body">
+            <div class="container">
+                <article class="content">
+
+                    <figure class="director">
+                        <img src="img/historia/director-javier-critto-900.jpg" alt="Dr. Javier Critto, Director del Archivo Histórico de Tucumán" width="900" height="774">
+                        <figcaption><strong>Dr. Javier Critto</strong>Director del Archivo Histórico de Tucumán</figcaption>
+                    </figure>
+
+                    <p class="lead">El Archivo Histórico de Tucumán es una institución cultural reconocida a nivel nacional e internacional que, por medio de la administración eficiente y eficaz de la información, procura reunir, atesorar, organizar, custodiar, conservar y difundir toda aquella documentación de valor histórico o permanente correspondiente a nuestra provincia, cumpliendo su loable misión de transferir y proteger el patrimonio histórico documental de Tucumán.</p>
+
+                    <p>Su misión principal y esencial es la preservación de la memoria documental histórica de nuestra provincia, misión esta que cumple mediante el incansable y tenaz trabajo de cuidado, preservación, organización documental, difusión, investigación, promoción, facilitación y extensión, rigiéndose siempre por los principios de democracia, equidad, tolerancia, honestidad, responsabilidad, diálogo y trabajo en equipo.</p>
+
+                    <div class="content__back">
+                        <a href="index.html" class="news-section__view-all">&larr; Volver al inicio</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-serie text-white" id="contacto">
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <a href="index.html" class="d-inline-block">
+                        <img class="footer-brand footer-brand--direccion" src="img/logo-direccion.png" alt="Archivo Histórico de la Provincia de Tucumán">
+                    </a>
+                    <hr class="footer-divider">
+                    <address class="text-white-50 small mb-0">
+                        <p class="mb-2">&copy; Copyright 2025 - Archivo Histórico de la Provincia de Tucumán</p>
+                        <p class="mb-2">25 de Mayo 487 - S.M. de Tucumán - Tucumán - Argentina<br><strong class="text-white">Teléfono:</strong> +54 (0381) 430 6907</p>
+                        <p class="mb-0"><strong class="text-white">Consultas de documentos:</strong><br><a href="mailto:procesostecnicosaht@rig.tucuman.gov.ar">procesostecnicosaht@rig.tucuman.gov.ar</a><br>
+                        <strong class="text-white">Otras consultas:</strong><br><a href="mailto:aht@tucuman.gov.ar">aht@tucuman.gov.ar</a></p>
+                    </address>
+                </div>
+                <div class="col-md-6">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-6">
+                            <a href="https://marcatucuman.com.ar/" target="_blank" rel="noopener noreferrer" class="d-inline-block">
+                                <img class="footer-brand footer-brand--marca" src="img/logo-marca.png" alt="Marca Tucumán">
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="https://www.tucuman.gob.ar/" target="_blank" rel="noopener noreferrer" class="d-inline-block">
+                                <img class="footer-brand footer-brand--gobierno" src="img/gob_tucuman_bl.png" alt="Gobierno de Tucumán">
+                            </a>
+                        </div>
+                    </div>
+                    <hr class="footer-divider">
+                    <p class="mb-1 small fw-semibold">HORARIOS DE ATENCIÓN AL PÚBLICO:</p>
+                    <p class="text-white-50 small mb-3">Lunes y Viernes de 08:30 a 15:30</p>
+                    <div class="social-footer">
+                        <a href="https://www.facebook.com/archivohistoricotucuman" target="_blank" rel="noopener noreferrer">Facebook</a>
+                        <a href="https://twitter.com/ahtucuman" target="_blank" rel="noopener noreferrer">Twitter</a>
+                        <a href="https://www.instagram.com/archivo.historico.tucuman/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                        <a href="https://www.youtube.com/channel/UCYDMgb6cn7Xbi_-EuDTPVDg" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-top border-secondary">
+            <div class="container py-3 text-center">
+                <p class="text-white-50 small mb-0">&copy; Copyright 2025 - Gobierno de Tucumán</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
